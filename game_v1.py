@@ -1,3 +1,4 @@
+import random
 from colorama import init
 from colorama import Fore, Back, Style
 from os import system, name
@@ -149,50 +150,111 @@ def clear():
     else:
         _ = system('clear')
 
+# ... (Previous code remains unchanged)
 
 # Gameplay section
+def play_round(player_cards, computer_cards):
+    """
+    Play a round of Rock-Paper-Scissors.
+
+    Args:
+    - player_cards (list): The player's cards for the current round.
+    - computer_cards (list): The computer's cards for the current round.
+
+    Returns:
+    - result (str): The result of the round ('win', 'lose', or 'tie').
+    """
+    # Display available cards
+    print("Your cards:", player_cards)
+    print("Computer's cards:", computer_cards)
+
+    # Get player's choice
+    player_choice = input("Choose your move (Rock, Paper, or Scissors): ").lower()
+
+    # Get computer's choice
+    computer_choice = random.choice(["rock", "paper", "scissors"])
+
+    # Determine the winner
+    result = determine_winner(player_choice, computer_choice)
+
+    # Display the result
+    print(f"You chose {player_choice.capitalize()}")
+    print(f"Computer chose {computer_choice.capitalize()}")
+    print(f"Result: {result.capitalize()}")
+
+    return result
+
+
+def determine_winner(player_choice, computer_choice):
+    """
+    Determine the winner of a Rock-Paper-Scissors round.
+
+    Args:
+    - player_choice (str): The player's choice ('rock', 'paper', or 'scissors').
+    - computer_choice (str): The computer's choice ('rock', 'paper', or 'scissors').
+
+    Returns:
+    - result (str): The result of the round ('win', 'lose', or 'tie').
+    """
+    if player_choice == computer_choice:
+        return "tie"
+    elif (
+            (player_choice == "rock" and computer_choice == "scissors") or
+            (player_choice == "paper" and computer_choice == "rock") or
+            (player_choice == "scissors" and computer_choice == "paper")
+    ):
+        return "win"
+    else:
+        return "lose"
+
+
 def main():
-    '''
-    Основная функция программы.
-
-    label -- название игры
-    paper -- карточка с бумагой
-    scissors -- карточка с ножницами
-    rock -- карточка с камнем
-    scroll -- свиток с описанием игры
-    controls -- список с клавишами для управлении игрой
-    instructions -- инструкция для игры
-    '''
-
+    # ... (Previous code remains unchanged)
     init(autoreset=True)
 
     clear()  # Очищаем экран
     print(label)  # Приветствуем игрока
     print("""Do you wanna start? 
-          Choose an option:
-          1 - Yes, I'm ready. Start the game.
-          2 - Nope. Quit the game.
-          """)  # Игроку предлагается выбор действий
+              Choose an option:
+              1 - Yes, I'm ready. Start the game.
+              2 - Nope. Quit the game.
+              """)  # Игроку предлагается выбор действий
     inp = input("Option: ")  # Игрок делает выбор
     if inp == "1":
         clear()  # Очищаем экран
         print(scroll)  # Выводим древний свиток
         print(controls)  # Вывод список с управлением в игре
-        while True:  # Начинаем основной цикл игры
-            inp = input("Press any key from controls('C'): ").upper()
-            if (inp == "Q"):
-                exit()  # Выходим из игры
-            elif (inp == "C"):
+
+        while True:
+            inp = input("Press any key from controls (Tip: press 'C' for controls): ").upper()
+
+            if inp == "Q":
+                exit()  # Quit the game
+            elif inp == "C":
                 clear()
-                print(controls)  # Вывод список с управлением в игре
-            elif (inp == "I"):
+                print(controls)  # Display controls
+            elif inp == "I":
                 clear()
-                print(instructions)  # Ознакамливаем игрока с правилами игры
-            elif (inp == "S"):
+                print(instructions)  # Display instructions
+            elif inp == "S":
                 clear()
-                print(scroll)  # Выводим свиток
+                print(scroll)  # Display scroll
+            else:
+                # Player selected an action, play a round
+                player_cards = ["rock", "paper", "scissors"]
+                computer_cards = ["rock", "paper", "scissors"]
+
+                result = play_round(player_cards, computer_cards)
+
+                # Handle result
+                if result == "win":
+                    print(Fore.GREEN + "You won this round!\n" + Fore.RESET)
+                elif result == "lose":
+                    print(Fore.RED + "You lost this round!\n" + Fore.RESET)
+                else:
+                    print("It's a tie! The round will continue.\n")
     else:
-        exit()
+        return
 
 
 if __name__ == "__main__":
