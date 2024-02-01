@@ -115,7 +115,7 @@ nums = {
 |  $$$$$$/
  \______/ """
 }
-chips = 0
+chips = 120
 pc_chips = 120
 if_supr_game_round_played = False
 player_moves = []  # Определяем список для хранения ходов игрока
