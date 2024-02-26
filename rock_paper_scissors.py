@@ -165,7 +165,7 @@ def play_super_game():
             break
     computer_card = computer_move(player_moves)  # Пк делает свой ход
     while computer_card == player_card:
-        computer_card = computer_move(player_moves) # Добиваемся того, чтобы не было ничьи
+        computer_card = computer_move(player_moves)  # Добиваемся того, чтобы не было ничьи
     clear()  # Очищаем экран
     # Выводим ходы игроков
     print("Your card:\n" + cards[player_card])
@@ -182,12 +182,10 @@ def play_super_game():
         chips += 1000000
         print("You win!")
         print("+1.000.000")
-    
+
     inp = input("Press any key to continue: ")
     return
 
-        
-        
 
 def play_the_game():
     '''
